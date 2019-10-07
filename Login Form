@@ -1,0 +1,46 @@
+Private Sub btnlog_Click(sender As Object, e As EventArgs) Handles btnlog.Click
+        Dim conn As MySqlConnection
+        Dim rd As MySqlDataReader
+        conn = New MySqlConnection
+        conn.ConnectionString = "server=localhost;userid=root;password=;database=db_name"
+
+
+
+        Try
+            conn.Open()
+            Dim query As String
+            Dim n As String
+            Dim p As String
+
+            query = "select * from idb_name.table_name where user_name='" & txtname.Text & "'and password='" & txtpass.Text & "'"
+            command = New MySqlCommand(query, conn)
+            rd = command.ExecuteReader
+            Dim count As Integer
+            count = 0
+            While rd.Read
+                count = count + 1
+
+            End While
+            If count = 1 Then
+
+                n = rd.GetString("user_name")
+                p = rd.GetString("password")
+                MessageBox.Show("username and pa ar correct" + n + p)
+            ElseIf count > 1 Then
+                MessageBox.Show("username and pa ar duplicate")
+            Else
+                MessageBox.Show("username and pa ar not correct")
+            End If
+            conn.Close()
+
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        Finally
+            conn.Dispose()
+        End Try
+    End Sub
+
+    
+End Class
