@@ -1,0 +1,35 @@
+Imports MySql.Data.MySqlClient
+
+Public Class Form2
+    Dim conn As MySqlConnection
+    Dim command As MySqlCommand
+    Private Sub btnreg2_Click(sender As Object, e As EventArgs) Handles btnreg2.Click
+        Dim conn As MySqlConnection
+        Dim rd As MySqlDataReader
+        conn = New MySqlConnection
+        conn.ConnectionString = "server=localhost;userid=root;password=;database=db_name"
+
+        Try
+            conn.Open()
+            Dim query As String
+            query = "insert into db_name.table_name (user_name,password) values ('" & uname.Text & "','" & pword.Text & "' )"
+            command = New MySqlCommand(query, conn)
+            rd = command.ExecuteReader
+            MessageBox.Show("data saved")
+            conn.Close()
+
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        Finally
+            conn.Dispose()
+        End Try
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Form1.Show()
+        Me.Hide()
+
+    End Sub
+End Class
