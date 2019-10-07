@@ -1,0 +1,21 @@
+ Dim conn As MySqlConnection
+        Dim command As MySqlCommand
+        Dim rd As MySqlDataReader
+
+
+        conn = New MySqlConnection
+        conn.ConnectionString = "server=localhost;userid=root;password=;database=stock_manage"
+        Try
+            conn.Open()
+            Dim query As String
+            query = "insert into stock_manage.supplier (sup-name,sup_id,location,sup_mobile,sup_mail) values ('" & txtSupName.Text & "','" & txtSupType.Text & "','" & txtSupLocation.Text & "','" & txtSupMobile.Text & "','" & txtSupMail.Text & "')"
+            command = New MySqlCommand(query, conn)
+            rd = command.ExecuteReader
+            MessageBox.Show("data saved")
+            conn.Close()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        Finally
+            conn.Dispose()
+        End Try
